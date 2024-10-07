@@ -1,0 +1,13 @@
+victini, 2
+snivy, 0
+tepig, 0
+oshawott, 0
+patrat, 0
+lillipup, 0
+purrloin, 0
+pansage, 0
+pansear, 0
+panpour, 0
+munna, 1
+pidove, 1
+blitzle, 1

@@ -3,7 +3,7 @@
 import pokebase as pb
 import argparse
 
-def parser_setup() -> argparse.ArgumentParser:
+def arguments_setup() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("game", help="determines which encounter set is used i.e. 'black-white'")
     
@@ -22,11 +22,21 @@ def parser_setup() -> argparse.ArgumentParser:
 
     return parser
 
+def parse_game_data(game: str) -> list[str, int]:
+    encounters_milestones = []
+    f = open("game/" + game + ".txt", "r")
+    for l in f:
+        s = l.replace("\n", "").split(", ")
+        encounters_milestones.append([s[0], int(s[1])])
+
 
 def main():
-    modifiers = parser_setup().parse_args()
-    print(modifiers.game)
-    print(modifiers.milestones)
+    arguments = arguments_setup().parse_args()
+    print(arguments.game)
+    print(arguments.milestones)
+
+    encounters_milestones = parse_game_data(arguments.game)
+    print(encounters_milestones)
 
 if __name__ == "__main__":
     main()
