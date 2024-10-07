@@ -28,7 +28,6 @@ def parse_game_data(game: str) -> list[int, str]:
         milestones_encounters.append([int(s[1]), s[0]])
     return milestones_encounters
 
-# randomly assigns milestones
 def pick_milestones() -> list[int]:
     rand_milestones = [0] # guaranteed for first milestone to be badge 0
     next = 1
@@ -39,13 +38,22 @@ def pick_milestones() -> list[int]:
         next = next + 1
     return rand_milestones
 
+def pick_encounters(milestones: list[int], milestones_encounters: list[int, str]) -> list[pb.APIResource]:
+    encounters = []
+    for i in milestones:
+        temp_encounters_id = []
+        for m, e in milestones_encounters:
+            if i == m:
+                temp_encounters_id.append(e)
+        temp_mon_id = random.choice(temp_encounters_id)
+        encounters.append(pb.pokemon(temp_mon_id))
+    return encounters
+
 
 def main():
     arguments = arguments_setup().parse_args()
-    print(arguments.game)
 
     milestones_encounters = parse_game_data(arguments.game)
-    print(milestones_encounters)
 
     if arguments.no_milestones:
         milestones = None
@@ -53,7 +61,9 @@ def main():
         milestones = pick_milestones()
         while milestones[-1] > 8:
             milestones = pick_milestones()
-    print(milestones)
+
+    encounters = pick_encounters(milestones, milestones_encounters)
+    print(encounters)
 
 if __name__ == "__main__":
     main()
