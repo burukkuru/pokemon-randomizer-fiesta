@@ -49,6 +49,13 @@ def pick_encounters(milestones: list[int], milestones_encounters: list[int, str]
         encounters.append(pb.pokemon(temp_mon_id))
     return encounters
 
+def pick_encounters_no_milestones(milestones_encounters: list[int, str]) -> list[pb.APIResource]:
+    encounters = []
+    for i in range(PARTY_SIZE):
+        temp_mon_id = random.choice(milestones_encounters)[1]
+        encounters.append(pb.pokemon(temp_mon_id))
+    return encounters
+
 
 def main():
     arguments = arguments_setup().parse_args()
@@ -62,7 +69,10 @@ def main():
         while milestones[-1] > 8:
             milestones = pick_milestones()
 
-    encounters = pick_encounters(milestones, milestones_encounters)
+    if arguments.no_milestones:
+        encounters = pick_encounters_no_milestones(milestones_encounters)
+    else:
+        encounters = pick_encounters(milestones, milestones_encounters)
     print(encounters)
 
 if __name__ == "__main__":
