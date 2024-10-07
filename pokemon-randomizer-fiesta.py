@@ -20,13 +20,13 @@ def arguments_setup() -> argparse.ArgumentParser:
     parser.add_argument("--allow-event", help="allows for event-only pokemon to be included in team", action="store_true")
     return parser
 
-def parse_game_data(game: str) -> list[str, int]:
-    encounters_milestones = []
+def parse_game_data(game: str) -> list[int, str]:
+    milestones_encounters = []
     f = open("game/" + game + ".txt", "r")
     for l in f:
         s = l.replace("\n", "").split(", ")
-        encounters_milestones.append([s[0], int(s[1])])
-    return encounters_milestones
+        milestones_encounters.append([int(s[1]), s[0]])
+    return milestones_encounters
 
 # randomly assigns milestones
 def pick_milestones() -> list[int]:
@@ -44,8 +44,8 @@ def main():
     arguments = arguments_setup().parse_args()
     print(arguments.game)
 
-    encounters_milestones = parse_game_data(arguments.game)
-    print(encounters_milestones)
+    milestones_encounters = parse_game_data(arguments.game)
+    print(milestones_encounters)
 
     if arguments.no_milestones:
         milestones = None
