@@ -15,8 +15,8 @@ def arguments_setup() -> argparse.ArgumentParser:
     parser.add_argument("--version", help="removes pokemon not obtainable from this version from team i.e. 'white'")
     parser.add_argument("--no-trade", help="removes pokemon which evolve via trade from team", action="store_true")
     parser.add_argument("--no-starter", help="removes pokemon which are gifted at the start from team", action="store_true")
-    parser.add_argument("--no-legend", help="removes pokemon which are labeled as legendaries from team", action="store_true")
     # including modifiers
+    parser.add_argument("--allow-legend", help="allows for legendary pokemon to be included in team", action="store_true")
     parser.add_argument("--allow-event", help="allows for event-only pokemon to be included in team", action="store_true")
     return parser
 
